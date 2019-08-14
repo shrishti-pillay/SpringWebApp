@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Spring Web Application</title>
+<!-- Bootstrap CSS -->
+<link rel = "stylesheet" href = "css/styles.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+	<link rel="stylesheet" href=" https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+</head>
+<body class="container-fluid">
+	<header class="row align-items-center alert alert-primary">
+		<div class = "col-2"> 
+   <img src = "/images/edutechLogo.png/" class = "imgLogo" alt = "logo picture" width = 150 height = 150/>
+    </div>
+    <div class = "col-8"> 
+     <h1 class = " title text-left"> EduTech <br/>
+      <small> Serving you since 1990</small> </h1>
+    </div>
+		<div class = "col-2">
+    	<a th:href = "@{'/login?logout'}" class=" logout btn btn-light"><i class="fa fa-sign-out-alt"></i> Logout</a>   
+    </div>
+
+	</header>
+	<section class="row alert">
+		<div class="container">
+			<h2> Students List </h2>
+			<table class="table table-striped" > 
+				<thead> 
+				<input type="hidden" th:value = "${course.courseId}" name = "courseId">
+    			<tr>  		    
+      				<th scope="col" class = "text-center"> Student Id</th>
+      				<th scope="col" class = "text-center">Student Name </th>
+      			</tr>
+      			</thead>
+      			<tbody>
+      				<tr th:each = "studentcourse : ${course.studentCourseList}" class = "text-center">
+     		 			<th scope="row" th:text = "${studentcourse.student.studentId}">1</th>
+     		 			<td th:text = "${studentcourse.student.studentName}" >"Janice Byers"</td>   
+     		 			</tr>   			
+      			</tbody>		
+			</table>  
+			
+		</div>
+	</section>
+	<footer class="row align-items-center alert alert-primary">
+		<div class="col-12">
+			<p>Copyright &copy; 2019. All Rights Reserved.</p>
+		</div>
+	</footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Spring Web Application</title>
+	<!-- Bootstrap CSS -->    
+	<link rel = "stylesheet" href = "css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+	<link rel="stylesheet" href=" https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+
+</head>
+<body class = "container-fluid">
+  <header class = "row align-items-center alert alert-primary"> 
+  <div class = "col-2"> 
+   <img src = "/images/edutechLogo.png/" class = "imgLogo" alt = "logo picture" width = 150 height = 150/>
+    </div>
+    <div class = "col-8"> 
+     <h1 class = " title text-left"> EduTech <br/>
+      <small> Serving you since 1990</small> </h1>
+    </div>
+       <div class = "col-2">
+    	<a th:href = "@{'/login?logout'}" class="logout btn btn-light"><i class="fa fa-sign-out-alt"></i> Logout</a>   
+    </div>
+     
+  </header>
+  <section class = "row alert"> 
+   <h1> Student List <br/> <br/>  
+
+   <div class="container-one">
+   <form class="form-inline mr-auto" th:action = "@{'/searchStudent'}" method="post">
+  		<input class="form-control mr-sm-2" type="text" name = "searchStudent" placeholder="Search" aria-label="Search"/>
+  		<button class="btn btn-primary"  type="submit"><i class="fas fa-search text" aria-hidden="true"></i></button>
+	</form>
+   	</div>
+   	
+   	<br/>
+   	
+   
+     <a href = "/student/add" th:href = "@{'/studentform'}"  class="btn btn-outline-primary"> <i class="fa fa-plus"></i> Add New Student</a>
+      <a href = "/student/home" th:href = "@{'/home'}" class="btn btn-outline-primary"> <i class="fa fa-long-arrow-alt-left"></i> Back </a>
+      <a href = "/student/2/emailAll"  th:href = "@{'/emailAll'}" class=" emailAll btn btn-primary"><i class="fa fa-envelope"></i> Email All</a>
+   </h1>
+   <hr/>
+   
+      <table class="table table-striped" >
+  		<thead> 
+    		<tr>  		    
+      			<th scope="col" class = "text-center">Student Id</th>
+      			<th scope="col" class = "text-center">Photo</th>
+      			<th scope="col" class = "text-center">Student Name</th>
+      			<th scope="col" class = "text-center">Email</th>
+      			<th scope="col" class = "text-center">Phone Number </th>
+      			<th scope="col" class = "text-center">Actions</th>
+      		</tr>
+     	</thead>
+     	<tbody> 
+     		<tr th:remove = "all" class = "text-center">
+     		 	<th scope="row">1</th>
+      			<td><img src = "/images/profilepic.jpg/" class = "img-thumbnail" alt = "pic1"/></td>
+      			<td>"John Smith"</td>
+      			<td>"jsmith@gmail.com"</td>
+      			<td>+65 8111 2111</td>
+      			<td> <a href = "/student/1/courselisting" class="btn btn-primary"><i class="fas fa-file-code"></i> Courses</a> 
+      				 <a href = "/student/1/progressReport" class="btn btn-primary"><i class=" fa fa-file-alt"></i> Report</a>
+      				 <a href = "/student/1/edit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+      			     <a href = "/student/1/delete" class="btn btn-primary"><i class="fa fa-trash-alt"></i> Delete</a>
+      			</td>
+     		</tr>
+     		<tr th:each = "student : ${studentProfiles}" class = "text-center">
+     		 	<th scope="row" th:text = "${student.key.studentId}">2</th>
+      			<td ><img th:src = "${'data:student.key.profilePic/png;base64, ' + student.value}" width = "100" height = "100" class = "img-thumbnail" alt = "pic2"/></td>
+      			<td th:text = "${student.key.studentName}" >"Janice Byers"</td>
+      			<td th:text = "${student.key.email}" >"Janice Byers"</td>
+      			<td th:text = "${student.key.phoneNum}">+65 8222 2333</td>
+      			<td> <a href = "/student/2/studentcourse" th:href = "@{'/student/'+${student.key.studentId}+'/studentcourse'}" class="btn btn-primary"><i class="fas fa-file-code"></i> Courses</a>
+      			<a href = "/student/2/progressReport" th:href = "@{'/student/'+${student.key.studentId}+'/studentreport'}" class="btn btn-primary"><i class="fa fa-file-alt"></i> Report</a> 
+      				<a href = "/student/2/edit"  th:href = "@{'/student/'+${student.key.studentId}+ '/edit'}" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
+      			     <a href = "/student/2/delete"  th:href = "@{'/student/'+${student.key.studentId}+ '/delete'}" class="btn btn-primary"><i class="fa fa-trash-alt"></i> Delete</a>
+      			      <a href = "/student/2/email"  th:href = "@{'/student/'+${student.key.studentId}+ '/email'}" class="btn btn-primary"><i class="fa fa-envelope"></i> Email</a>
+      			</td>
+     		</tr>	
+     	</tbody>
+     	</table>
+  </section>
+  <footer class = "row align-items-center alert alert-primary">
+  	<div class = "col-12">
+  	  <p> 
+  	   Copyright &copy; 2019. All Rights Reserved. 
+  	  </p>
+  	</div>     
+  </footer>
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
